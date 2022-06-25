@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import "./App.scss";
 import Footer from "./components/Footer";
-import Form from "./components/Form";
+import Control from "./components/Control";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 
@@ -16,7 +16,7 @@ const App = () => {
       <div className="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/add" element={<Form />} />
+          <Route path="/control" element={<Control />} />
         </Routes>
       </div>
       <div className="footer">

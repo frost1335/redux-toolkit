@@ -1,15 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../constants";
 
-const productApiHeaders = {
-  "Content-Type": "application/json",
-};
+// const productApiHeaders = {
+//   "Content-Type": "application/json",
+// };
 
 const createRequest = (url, method = "GET", body = null) => ({
   url,
-  headers: productApiHeaders,
+  // headers: productApiHeaders,
   method,
   body,
+  credentials: "include",
 });
 
 export const productApi = createApi({
@@ -18,16 +19,22 @@ export const productApi = createApi({
   tagTypes: ["Products"],
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => "/api/product",
+      query: () => createRequest("/api/product"),
       providesTags: ["Products"],
     }),
     createProduct: builder.mutation({
-      query: (product) => createRequest("/api/product", "POST", product),
+      query: (product) => {
+        console.log(product.get("name"));
+        return createRequest("/api/product", "POST", product);
+      },
       invalidatesTags: ["Products"],
     }),
     editProduct: builder.mutation({
-      query: (id, updatedProduct) =>
-        createRequest(`/api/product/${id}`, "PATCH", updatedProduct),
+      query: (id, updatedProduct) => {
+        console.log(updatedProduct);
+
+        return createRequest(`/api/product/${id}`, "PATCH", updatedProduct);
+      },
       invalidatesTags: ["Products"],
     }),
     deleteProduct: builder.mutation({

@@ -17,10 +17,10 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: [true, "Please enter product rating"],
   },
-  images: {
-    type: Array,
-    default: [],
-    required: [true, "Please provide product images"],
+  img: {
+    type: String,
+    default: "There is no image yet",
+    required: [true, "Please provide product img"],
   },
 });
 
