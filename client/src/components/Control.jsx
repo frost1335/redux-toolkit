@@ -6,8 +6,6 @@ import {
   useGetProductsQuery,
 } from "../services/productApi";
 
-import {FormProvider} from 'react-hook-form'
-
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { Button, Rating, TextField } from "@mui/material";
