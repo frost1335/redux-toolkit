@@ -5,6 +5,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connectDB } = require("./utils/db");
 
+const errorHandler = require("./middlewares/error");
+
 dotenv.config();
 connectDB();
 
@@ -20,6 +22,11 @@ app.use(
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+
+app.use("/product", require("./routes/product.routes"));
+
+// error handler
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
