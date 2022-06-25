@@ -23,7 +23,7 @@ app.use(
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-app.use("/product", require("./routes/product.routes"));
+app.use("/api/product", require("./routes/product.routes"));
 
 // error handler
 app.use(errorHandler);

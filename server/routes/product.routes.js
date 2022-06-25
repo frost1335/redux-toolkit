@@ -4,7 +4,7 @@ const router = Router();
 
 router.route("/").get(getAll);
 router.route("/").post(create);
-router.route("/:id").put(edit);
+router.route("/:id").patch(edit);
 router.route("/:id").delete(deleteOne);
 
 module.exports = router;
