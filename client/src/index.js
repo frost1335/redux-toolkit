@@ -7,6 +7,7 @@ import App from "./App";
 import store from "./app/store";
 
 const container = createRoot(document.getElementById("root"));
+
 container.render(
   <BrowserRouter>
     <Provider store={store}>

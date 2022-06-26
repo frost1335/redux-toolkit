@@ -1,44 +1,46 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../constants";
 
-// const productApiHeaders = {
-//   "Content-Type": "application/json",
-// };
-
-const createRequest = (url, method = "GET", body = null) => ({
-  url,
-  // headers: productApiHeaders,
-  method,
-  body,
-  credentials: "include",
-});
+const productApiHeaders = {
+  "Content-Type": "application/json",
+};
 
 export const productApi = createApi({
   reducerPath: "productsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   tagTypes: ["Products"],
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => createRequest("/api/product"),
+      query: (count) => ({
+        url: `/api/product?count=${count}`,
+        headers: productApiHeaders,
+      }),
       providesTags: ["Products"],
     }),
+    getProduct: builder.query({
+      query: (id) => ({
+        url: `/api/product/${id}`,
+        headers: productApiHeaders,
+      }),
+    }),
     createProduct: builder.mutation({
-      query: (product) => {
-        console.log(product.get("name"));
-        return createRequest("/api/product", "POST", product);
-      },
+      query: (product) => ({
+        url: "/api/product",
+        method: "POST",
+        body: product,
+      }),
       invalidatesTags: ["Products"],
     }),
     editProduct: builder.mutation({
-      query: (id, updatedProduct) => {
-        console.log(updatedProduct);
-
-        return createRequest(`/api/product/${id}`, "PATCH", updatedProduct);
-      },
+      query: (updatedProduct) => ({
+        url: `/api/product/${updatedProduct.get("_id")}`,
+        method: "PATCH",
+        body: updatedProduct,
+      }),
       invalidatesTags: ["Products"],
     }),
     deleteProduct: builder.mutation({
-      query: (id) => createRequest(`/api/product/${id}`, "DELETE"),
+      query: (id) => ({ url: `/api/product/${id}`, method: "DELETE" }),
       invalidatesTags: ["Products"],
     }),
   }),
@@ -49,4 +51,5 @@ export const {
   useCreateProductMutation,
   useEditProductMutation,
   useDeleteProductMutation,
+  useGetProductQuery,
 } = productApi;

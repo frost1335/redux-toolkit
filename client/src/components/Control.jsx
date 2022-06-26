@@ -10,6 +10,8 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { Button, Rating, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { BASE_URL } from "../constants";
+import { useEffect } from "react";
 
 const Input = styled("input")({
   display: "none",
@@ -23,9 +25,22 @@ const Control = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(0);
   const [img, setImg] = useState("");
   const [currentId, setCurrentId] = useState("");
+
+  useEffect(() => {
+    if (currentId) {
+      const currentProduct = productsList?.data?.find(
+        (p) => p._id === currentId
+      );
+      setName(currentProduct.name);
+      setDescription(currentProduct.description);
+      setPrice(currentProduct.price);
+      setRating(currentProduct.rating);
+      setImg(currentProduct.img);
+    }
+  }, [currentId, productsList]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -34,25 +49,26 @@ const Control = () => {
     formData.append("description", description);
     formData.append("price", price);
     formData.append("rating", rating);
+    formData.append("img", img);
 
     try {
       if (currentId) {
+        formData.append("_id", currentId);
         await editProduct(formData);
-        console.log("Product successfully edited");
         clean();
       } else {
         await createProduct(formData);
-        console.log("Product successfully created");
         clean();
       }
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   };
 
-  const onDeleteHandler = async (id) => await deleteProduct(id);
-
-  const onClickEdit = (id) => setCurrentId(id);
+  const onDeleteHandler = async (id) => {
+    await deleteProduct(id);
+    clean();
+  };
 
   const clean = () => {
     setName("");
@@ -69,12 +85,13 @@ const Control = () => {
         <div className="control-box">
           <div className="control-form">
             <h4>Product form</h4>
-            <form onSubmit={onSubmitHandler}>
+            <form className="control-formData" onSubmit={onSubmitHandler}>
               <TextField
                 id="outlined-basic"
                 label="Name"
                 variant="outlined"
                 value={name}
+                name="name"
                 onChange={(e) => setName(e.target.value)}
                 className="form-input"
               />
@@ -84,6 +101,7 @@ const Control = () => {
                 label="Price"
                 variant="outlined"
                 value={price}
+                name="price"
                 onChange={(e) => setPrice(e.target.value)}
                 className="form-input"
               />
@@ -92,6 +110,7 @@ const Control = () => {
                 label="Description"
                 variant="outlined"
                 value={description}
+                name="description"
                 onChange={(e) => setDescription(e.target.value)}
                 className="form-input"
               />
@@ -99,6 +118,7 @@ const Control = () => {
                 precision={0.5}
                 size="medium"
                 value={rating}
+                name="rating"
                 onChange={(e) => setRating(e.target.value)}
                 className="form-rating"
               />
@@ -106,7 +126,7 @@ const Control = () => {
                 <Input
                   accept="image/*"
                   id="contained-button-file"
-                  multiple
+                  name="img"
                   type="file"
                   onChange={(e) => setImg(e.target.files[0])}
                 />
@@ -125,7 +145,7 @@ const Control = () => {
                 style={{ padding: "8px 40px" }}
                 size="large"
               >
-                Create
+                {currentId ? "Edit" : "Create"}
               </Button>
             </form>
           </div>
@@ -137,14 +157,14 @@ const Control = () => {
                   <li className="control-item" key={idx}>
                     <span>#{idx + 1}</span>
                     <div className="img">
-                      <img src={p.img} alt="img" />
+                      <img src={BASE_URL + p.img[0].thumbnail.path} alt="img" />
                     </div>
                     <span className="name">{p.name}</span>
                     <span className="price">{p.price}</span>
                     <div className="icons">
                       <button
                         className="edit"
-                        onClick={() => onClickEdit(p._id)}
+                        onClick={() => setCurrentId(p._id)}
                       >
                         <ModeEditOutlineOutlinedIcon />
                       </button>

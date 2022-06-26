@@ -18,8 +18,8 @@ const productSchema = mongoose.Schema({
     required: [true, "Please enter product rating"],
   },
   img: {
-    type: String,
-    default: "There is no image yet",
+    type: Array,
+    default: ["There is no img yet"],
     required: [true, "Please provide product img"],
   },
 });

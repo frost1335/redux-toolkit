@@ -4,9 +4,26 @@ const ErrorResponse = require("../utils/ErrorResponse");
 
 exports.getAll = async (req, res, next) => {
   try {
-    const products = await Product.find();
+    let count = req.query.count;
+
+    if (count == -1) {
+      count = 0;
+    }
+
+    const products = await Product.find().limit(count);
 
     res.status(200).json({ success: true, data: products });
+  } catch (e) {
+    next(e.message);
+  }
+};
+
+exports.getOne = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findById(id);
+
+    res.status(200).json({ success: true, data: product });
   } catch (e) {
     next(e.message);
   }

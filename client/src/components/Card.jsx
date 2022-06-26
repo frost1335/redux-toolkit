@@ -1,24 +1,38 @@
 import React from "react";
-import { productImg } from "../images";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../constants";
 
-const Card = () => {
+const formatter = new Intl.NumberFormat("en-EN", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 2,
+});
+
+const Card = ({ product }) => {
+  if (!product) return "";
   return (
     <div className="card-box">
-      <Link to="/product/">
+      <Link to={`/product/${product._id}`}>
         <div className="card">
           <div className="card-img">
-            <img src={productImg} alt="product-img" />
+            <img
+              src={BASE_URL + product.img[0].medium.path}
+              alt="product-img"
+            />
           </div>
           <div className="card-body">
-            <h4>Custom Carton Boxes</h4>
+            <h4>{product.name}</h4>
             <div className="body-text">
               <p className="text">
-                Create a clean brand presentation with this custom carton box.
+                {product.description.length > 50
+                  ? `${product.description.substring(0, 50)}...`
+                  : product.description}
               </p>
               <div className="price">
                 <span className="price-text">Starting at:</span>
-                <span className="price-num">$10.44/unit</span>
+                <span className="price-num">
+                  {formatter.format(product.price)}/unit
+                </span>
               </div>
             </div>
           </div>

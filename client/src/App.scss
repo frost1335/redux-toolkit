@@ -16,6 +16,56 @@ body {
   margin: auto;
 }
 
+.Loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+
+  .lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #3d5675;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #3d5675 transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.empty-text {
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  color: #3d5675;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -184,7 +234,7 @@ body {
       color: #011f3a;
     }
 
-    button {
+    a {
       padding: 13px 25px;
       background: #3d5675;
       border-radius: 44px;
@@ -195,6 +245,7 @@ body {
       text-align: center;
       letter-spacing: 1.96px;
       text-transform: uppercase;
+      text-decoration: none;
       color: #ffffff;
       cursor: pointer;
       border: none;
@@ -256,11 +307,12 @@ body {
       img {
         width: 100%;
         height: 302px;
+        object-fit: cover;
       }
     }
 
     .card-body {
-      padding: 24px 24px 5px;
+      padding: 24px 24px 20px;
 
       h4 {
         font-style: normal;
@@ -970,6 +1022,32 @@ body {
             }
           }
         }
+      }
+    }
+  }
+}
+
+.product-detail {
+  background: #eee;
+  padding: 100px 0 120px 0;
+
+  .detail-box {
+    background: #fff;
+    padding: 30px 40px;
+
+    .detail-header {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      justify-content: space-between;
+      padding: 15px 0 45px;
+      border-bottom: 1px solid rgba($color: #3d5675, $alpha: 0.5);
+      margin-bottom: 30px;
+
+      h4 {
+        font-size: 24px;
+        color: #011f3a;
+        font-weight: 400;
       }
     }
   }
