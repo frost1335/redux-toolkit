@@ -12,6 +12,7 @@ import { Button, Rating, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BASE_URL } from "../constants";
 import { useEffect } from "react";
+import Loader from "./Loader";
 
 const Input = styled("input")({
   display: "none",
@@ -158,7 +159,9 @@ const Control = () => {
           <div className="control-list">
             <h4>Products list</h4>
             <ul className="control-menu">
-              {(!isFetching &&
+              {isFetching ? (
+                <Loader />
+              ) : productsList?.data?.length > 0 ? (
                 productsList?.data?.map((p, idx) => (
                   <li className="control-item" key={idx}>
                     <span>#{idx + 1}</span>
@@ -182,8 +185,10 @@ const Control = () => {
                       </button>
                     </div>
                   </li>
-                ))) ||
-                "There is no products"}
+                ))
+              ) : (
+                <p className="empty-text">There is no products</p>
+              )}
             </ul>
           </div>
         </div>
