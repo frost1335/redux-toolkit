@@ -17,6 +17,12 @@ const Input = styled("input")({
   display: "none",
 });
 
+const formatter = new Intl.NumberFormat("en-EN", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 2,
+});
+
 const Control = () => {
   const { data: productsList, isLoading: isFetching } = useGetProductsQuery();
   const [createProduct] = useCreateProductMutation();
@@ -160,7 +166,7 @@ const Control = () => {
                       <img src={BASE_URL + p.img[0].thumbnail.path} alt="img" />
                     </div>
                     <span className="name">{p.name}</span>
-                    <span className="price">{p.price}</span>
+                    <span className="price">{formatter.format(p.price)}</span>
                     <div className="icons">
                       <button
                         className="edit"

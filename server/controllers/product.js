@@ -7,10 +7,10 @@ exports.getAll = async (req, res, next) => {
     let count = req.query.count;
 
     if (count == -1) {
-      count = 0;
+      count = null;
     }
 
-    const products = await Product.find().limit(count);
+    const products = await Product.find().limit(null);
 
     res.status(200).json({ success: true, data: products });
   } catch (e) {
