@@ -12,6 +12,7 @@ export const productApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: (count) => ({
+        stb: () => console.log(count),
         url: `/api/product?count=${count}`,
         headers: productApiHeaders,
       }),

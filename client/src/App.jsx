@@ -21,6 +21,21 @@ const App = () => {
           <Route path="/control" element={<Control />} />
           <Route path="/products" element={<Products />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
+          <Route
+            path="*"
+            element={
+              <div
+                style={{
+                  maxWidth: 1200,
+                  padding: "100px 0",
+                  margin: "auto",
+                }}
+              >
+                <h1>404</h1>
+                <h3>You are in the wrong page</h3>
+              </div>
+            }
+          />
         </Routes>
       </div>
       <div className="footer">

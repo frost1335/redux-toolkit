@@ -13,7 +13,7 @@ const Navbar = () => {
       </div>
       <ul className="nav-menu">
         <li>
-          <Link to="#">Start your design</Link>
+          <Link to="/control">Start your design</Link>
         </li>
         <li>
           <Link to="/products">All products</Link>

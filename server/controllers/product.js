@@ -1,16 +1,13 @@
 const { default: mongoose } = require("mongoose");
 const Product = require("../models/Product");
 const ErrorResponse = require("../utils/ErrorResponse");
+const deleteFile = require("../utils/fileDelete");
 
 exports.getAll = async (req, res, next) => {
   try {
-    let count = req.query.count;
+    const count = req.query.count;
 
-    if (count == -1) {
-      count = null;
-    }
-
-    const products = await Product.find().limit(null);
+    const products = await Product.find().limit(count);
 
     res.status(200).json({ success: true, data: products });
   } catch (e) {
@@ -43,6 +40,10 @@ exports.create = (req, res, next) => {
 
 exports.edit = async (req, res, next) => {
   const { id } = req.params;
+  if (req.body.img) {
+    const oldProduct = await Product.findById(id).select("img");
+    deleteFile(oldProduct.img);
+  }
   const product = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return new ErrorResponse("There is not product with this id");
@@ -69,6 +70,9 @@ exports.deleteOne = async (req, res, next) => {
     return new ErrorResponse("There is not product with this id");
   }
   try {
+    const product = await Product.findById(id).select("img");
+    deleteFile(product.img);
+
     await Product.findByIdAndRemove(id);
 
     res

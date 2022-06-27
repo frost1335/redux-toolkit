@@ -5,7 +5,7 @@ import Card from "./Card";
 import Loader from "./Loader";
 
 const Products = ({ simplified }) => {
-  const count = simplified ? 6 : -1;
+  const count = simplified ? 6 : 0;
   const { data: productsList, isLoading } = useGetProductsQuery(count);
 
   console.log(productsList?.data);

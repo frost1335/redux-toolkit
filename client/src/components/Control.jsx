@@ -24,7 +24,7 @@ const formatter = new Intl.NumberFormat("en-EN", {
 });
 
 const Control = () => {
-  const { data: productsList, isLoading: isFetching } = useGetProductsQuery();
+  const { data: productsList, isLoading: isFetching } = useGetProductsQuery(0);
   const [createProduct] = useCreateProductMutation();
   const [deleteProduct] = useDeleteProductMutation();
   const [editProduct] = useEditProductMutation();
