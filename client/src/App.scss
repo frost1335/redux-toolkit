@@ -216,7 +216,9 @@ body {
   }
 }
 
-.products {
+.products,
+.favorites,
+.users {
   background: #eeeeee;
   padding: 57px 0 50px 0;
 
@@ -352,6 +354,23 @@ body {
           span {
             display: flex;
           }
+        }
+      }
+
+      .card-bottom {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+        position: relative;
+        z-index: 4;
+
+        .info-button {
+          border: none;
+          background: #3d5675;
+          color: #fff;
+          padding: 10px 25px;
+          cursor: pointer;
+          border-radius: 36px;
         }
       }
     }
@@ -1133,15 +1152,28 @@ body {
           margin-bottom: 30px;
         }
 
-        button {
-          display: block;
-          padding: 13px 36px;
-          border: none;
-          border-radius: 44px;
-          background: #3d5675;
-          color: #fff;
-          font-size: 16px;
-          cursor: pointer;
+        .info-bottom {
+          display: flex;
+
+          button.info-button {
+            display: block;
+            padding: 13px 36px;
+            border: none;
+            border-radius: 44px;
+            background: #3d5675;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 25px;
+
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+
+          .MuiButtonBase-root {
+            padding: 0;
+          }
         }
       }
     }

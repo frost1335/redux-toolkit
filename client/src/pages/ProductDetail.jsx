@@ -1,4 +1,4 @@
-import { Rating } from "@mui/material";
+import { Rating, Tooltip } from "@mui/material";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
@@ -55,9 +55,16 @@ const ProductDetail = () => {
                   readOnly
                   size="large"
                 />
-                <button>
-                  Buy for {formatter.format(product?.data?.price)}
-                </button>
+                <div className="info-bottom">
+                  <Tooltip title="Buy product">
+                    <button className="info-button">
+                      Buy for {formatter.format(product?.data?.price)}
+                    </button>
+                  </Tooltip>
+                  <Tooltip title="Add to favorite">
+                    <button className="info-button">Add to favorite</button>
+                  </Tooltip>
+                </div>
               </div>
             </div>
           </div>

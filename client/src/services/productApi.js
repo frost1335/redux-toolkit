@@ -7,21 +7,18 @@ const productApiHeaders = {
 
 export const productApi = createApi({
   reducerPath: "productsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL, headers: productApiHeaders }),
   tagTypes: ["Products"],
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: (count) => ({
-        stb: () => console.log(count),
         url: `/api/product?count=${count}`,
-        headers: productApiHeaders,
       }),
       providesTags: ["Products"],
     }),
     getProduct: builder.query({
       query: (id) => ({
         url: `/api/product/${id}`,
-        headers: productApiHeaders,
       }),
     }),
     createProduct: builder.mutation({

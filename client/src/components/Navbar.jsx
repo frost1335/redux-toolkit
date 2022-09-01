@@ -19,6 +19,12 @@ const Navbar = () => {
           <Link to="/products">All products</Link>
         </li>
         <li>
+          <Link to="/favorites">Favorites</Link>
+        </li>
+        <li>
+          <Link to="/users">Users</Link>
+        </li>
+        <li>
           <Link to="#">Inspiration</Link>
         </li>
         <li>
