@@ -32,7 +32,7 @@ const Navbar = () => {
         </li>
       </ul>
       <div className="nav-account">
-        <Link to="#">Account</Link>
+        <Link to="/auth/login">Account</Link>
         <ShoppingCart />
       </div>
     </>
