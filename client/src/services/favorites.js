@@ -23,7 +23,7 @@ export const favoriteSlice = createSlice({
   reducers: {
     addProduct(state, action) {
       const favorites = JSON.parse(localStorage.getItem(FAVORITE_KEY));
-      if (!favorites.find((product) => product._id === action.payload._id))
+      if (!favorites?.find((product) => product._id === action.payload._id))
         state.favorites.push(action.payload);
       localStorage.setItem(FAVORITE_KEY, JSON.stringify(state.favorites));
     },
